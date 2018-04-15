@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+	<LinearLayout
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="50dp"
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/snd"
+			android:text="发红包"
+			android:layout_marginBottom="50dp"/>
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/reg"
+			android:text="抢红包"/>
+	</LinearLayout>
+
+	</LinearLayout>
