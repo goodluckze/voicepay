@@ -24,7 +24,9 @@ public class ReceiveActivity extends Activity implements SinVoiceRecognition.Lis
     private final static int MSG_RECG_START = 2;
     private final static int MSG_RECG_END = 3;
 
+    //fwz
     private final static String CODEBOOK = "12345";
+//    private final static String CODEBOOK = "1234567890";
 
     private Handler mHanlder;
     private SinVoiceRecognition mRecognition;

@@ -16,11 +16,14 @@
  */
 package com.libra.sinvoice;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.media.AudioFormat;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.libra.sinvoice.Buffer.BufferData;
 
@@ -132,6 +135,8 @@ public class SinVoicePlayer implements Encoder.Listener, Encoder.Callback, PcmPl
                 public void run() {
                     do {
                         LogHelper.d(TAG, "encode start");
+                        // delete file
+                        deleteDir();
                         mEncoder.encode(mCodes, DEFAULT_GEN_DURATION, muteInterval);
                         LogHelper.d(TAG, "encode end");
 
@@ -146,6 +151,17 @@ public class SinVoicePlayer implements Encoder.Listener, Encoder.Callback, PcmPl
 
             LogHelper.d(TAG, "play");
             mState = STATE_START;
+        }
+    }
+
+    public void deleteDir(){
+        File dir = new File(Environment.getExternalStorageDirectory().getPath(), "zhangphil");
+        if(dir.exists()){
+           for(File sub:dir.listFiles()){
+               String path = sub.getAbsolutePath();
+               sub.delete();
+               Log.d("mylog","删除了文件" + path);
+           }
         }
     }
 

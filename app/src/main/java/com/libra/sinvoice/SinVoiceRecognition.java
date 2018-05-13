@@ -17,6 +17,7 @@
 package com.libra.sinvoice;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.libra.sinvoice.Buffer.BufferData;
 
@@ -80,6 +81,7 @@ public class SinVoiceRecognition implements Record.Listener, Record.Callback, Vo
     }
 
     public void start() {
+        LogHelper.d(TAG, "mState:"+mState);
         if (STATE_STOP == mState) {
             mState = STATE_PENDING;
 
@@ -212,6 +214,7 @@ public class SinVoiceRecognition implements Record.Listener, Record.Callback, Vo
             if (Common.START_TOKEN == index) {
                 mListener.onRecognitionStart();
             } else if (Common.STOP_TOKEN == index) {
+                //fwz 识别到结束符号
                 mListener.onRecognitionEnd();
             } else if (index > 0 && index <= mMaxCodeIndex) {
                 mListener.onRecognition(mCodeBook.charAt(index - 1));

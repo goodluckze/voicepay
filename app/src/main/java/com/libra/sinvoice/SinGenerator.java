@@ -97,6 +97,7 @@ public class SinGenerator {
     // genrate 频率
     // duration 持续时间
     public void gen(int genRate, int duration) {
+        byte[] data = new byte[mBufferSize];
         if (STATE_START == mState) {
             mGenRate = genRate;
             mDuration = duration;
@@ -106,10 +107,11 @@ public class SinGenerator {
             }
 
             int n = mBits / 2;
+            // 采样点 = 采样时间*采样率 44100
             int totalCount = (mDuration * mSampleRate) / 1000;
+            // 正弦波频率
             double per = (mGenRate / (double) mSampleRate) * 2 * Math.PI;
             double d = 0;
-
             LogHelper.d(TAG, "genRate:" + genRate);
             if (null != mCallback) {
                 mFilledSize = 0;
@@ -119,22 +121,24 @@ public class SinGenerator {
                         if (STATE_START == mState) {
                             int out = (int) (Math.sin(d) * n) + 128;
 
-                            if (mFilledSize >= mBufferSize - 1) {
-                                // free buffer
-                                buffer.setFilledSize(mFilledSize);
-                                mCallback.freeGenBuffer(buffer);
+                                if (mFilledSize >= mBufferSize - 1) {
+                                    // free buffer
+                                    buffer.setFilledSize(mFilledSize);
+                                    mCallback.freeGenBuffer(buffer);
 
-                                mFilledSize = 0;
-                                buffer = mCallback.getGenBuffer();
-                                if (null == buffer) {
-                                    LogHelper.e(TAG, "get null buffer");
-                                    break;
+                                    mFilledSize = 0;
+                                    buffer = mCallback.getGenBuffer();
+                                    if (null == buffer) {
+                                        LogHelper.e(TAG, "get null buffer");
+                                        break;
+                                    }
                                 }
-                            }
 
                             buffer.mData[mFilledSize++] = (byte) (out & 0xff);
+//                            data[mFilledSize] = (byte) (out & 0xff);
                             if (BITS_16 == mBits) {
                                 buffer.mData[mFilledSize++] = (byte) ((out >> 8) & 0xff);
+//                                data[mFilledSize] = (byte) ((out >> 8) & 0xff);
                             }
 
                             d += per;
@@ -159,4 +163,5 @@ public class SinGenerator {
             }
         }
     }
+
 }

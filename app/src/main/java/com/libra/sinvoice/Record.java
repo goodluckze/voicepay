@@ -117,7 +117,6 @@ public class Record {
                                     if (null != data.mData) {
                                         int bufferReadResult = record.read(data.mData, 0, mBufferSize);
                                         data.setFilledSize(bufferReadResult);
-
                                         mCallback.freeRecordBuffer(data);
                                     } else {
                                         // end of input
@@ -156,6 +155,7 @@ public class Record {
     }
 
     public void stop() {
+
         if (STATE_START == mState) {
             mState = STATE_STOP;
         }

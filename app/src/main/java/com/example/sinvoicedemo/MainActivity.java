@@ -1,7 +1,10 @@
 package com.example.sinvoicedemo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.AudioTrack;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,6 +30,9 @@ public class MainActivity extends Activity implements SinVoiceRecognition.Listen
     private Handler mHanlder;
     private SinVoicePlayer mSinVoicePlayer;
     private SinVoiceRecognition mRecognition;
+
+    private static Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,23 +40,84 @@ public class MainActivity extends Activity implements SinVoiceRecognition.Listen
 
 
         Button sndButton =(Button)this.findViewById(R.id.snd);
-        Button regButton = (Button)this.findViewById(R.id.reg);
 
+        Button sndMallButton =(Button)this.findViewById(R.id.snd_mall);
+        Button sndCorButton =(Button)this.findViewById(R.id.snd_cor);
+        Button sndEggButton =(Button)this.findViewById(R.id.snd_egg);
+
+
+        Button regButton = (Button)this.findViewById(R.id.reg);
+        Button sndRedBagButton =(Button)this.findViewById(R.id.snd_redbag);
         sndButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SendActivity.class);
                 startActivity(intent);
+//                AudioTrack mAudio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate, channel, format, bufferSize, AudioTrack.MODE_STATIC);
+//
+//                int len = mAudio.write(data.mData, 0, data.getFilledSize());
+//
+////                if (0 == mPlayedLen) {
+//                    mAudio.play();
+////                }
             }
         });
+
+        sndMallButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SendActivity.class);
+                intent.putExtra("key","mall");
+                startActivity(intent);
+            }
+        });
+
+        sndCorButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SendActivity.class);
+                intent.putExtra("key","cor");
+                startActivity(intent);
+            }
+        });
+
+        sndEggButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SendActivity.class);
+                intent.putExtra("key","egg");
+                startActivity(intent);
+            }
+        });
+
 
         regButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ReceiveActivity.class);
+                Intent intent = new Intent(MainActivity.this, ReceiveWebViewActivity.class);
                 startActivity(intent);
             }
         });
+
+
+        sndRedBagButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SendRedBagActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this,ReceiveWebViewActivity.class);
+                startActivity(intent);
+            }
+
+            }, 500);
 
 /*
         mSinVoicePlayer = new SinVoicePlayer(CODEBOOK);
@@ -100,6 +167,19 @@ public class MainActivity extends Activity implements SinVoiceRecognition.Listen
         */
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this,ReceiveWebViewActivity.class);
+                startActivity(intent);
+            }
+
+        }, 500);
+    }
+
     private String genText(int count) {
         StringBuilder sb = new StringBuilder();
         int pre = 0;
@@ -141,6 +221,10 @@ public class MainActivity extends Activity implements SinVoiceRecognition.Listen
 
             case MSG_RECG_END:
                 LogHelper.d(TAG, "recognition end");
+                break;
+            case 999:
+                Intent intent = new Intent(mContext, SendActivity.class);
+                mContext.startActivity(intent);
                 break;
             }
             super.handleMessage(msg);

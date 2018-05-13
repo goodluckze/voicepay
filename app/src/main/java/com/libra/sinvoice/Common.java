@@ -17,8 +17,13 @@
 package com.libra.sinvoice;
 
 public class Common {
+    //fwz
     public final static int START_TOKEN = 0;
     public final static int STOP_TOKEN = 6;
+//    public final static int START_TOKEN = 11;
+//    public final static int STOP_TOKEN = 12;
+//
+
     public final static String DEFAULT_CODE_BOOK = "12345";
 
     public final static int DEFAULT_BUFFER_SIZE = 4096;

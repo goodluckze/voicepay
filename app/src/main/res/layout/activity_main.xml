@@ -5,22 +5,59 @@
 
 
 	<LinearLayout
-		android:layout_marginLeft="20dp"
 		android:layout_marginTop="50dp"
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
+
+		<Button
+			android:id="@+id/reg"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="50dp"
+			android:text="听一听" />
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/snd_redbag"
+			android:layout_marginBottom="70dp"
+			android:text="C端发红包"
+			android:visibility="gone"/>
+
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/snd_egg"
+			android:text="LIVE场景"
+			android:layout_marginBottom="30dp"
+			android:visibility="gone"
+			/>
+
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/snd_mall"
+			android:text="商场场景"
+			android:layout_marginBottom="30dp"
+			android:visibility="gone"
+			/>
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/snd_cor"
+			android:text="进企场景"
+			android:layout_marginBottom="30dp"
+			android:visibility="gone"/>
+
+
+
 		<Button
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/snd"
-			android:text="发红包"
-			android:layout_marginBottom="50dp"/>
-		<Button
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/reg"
-			android:text="抢红包"/>
+			android:text="测试发声"
+			android:layout_marginBottom="0dp"
+			android:visibility="gone"/>
 	</LinearLayout>
 
 	</LinearLayout>
