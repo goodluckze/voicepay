@@ -150,6 +150,7 @@ public class VoiceRecognition {
                 }
             } else {
                 ++mSamplingPointCount;
+                LogHelper.d("mylog","" + mSamplingPointCount);
                 if (STEP1 == mStep) {
                     if (sh < 0) {
                         mStep = STEP2;
